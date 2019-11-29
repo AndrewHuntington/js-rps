@@ -1,6 +1,7 @@
 let win = 0;
 let lose = 0;
 let tie = 0;
+let gameOver = false;
 
 const result = document.querySelector('.result');
 const matchResult = document.createElement('h1');
@@ -52,20 +53,32 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function trackScore(result) {
-  if (result === 0) {
-    tie++;
-  } else if (result === 1) {
-    lose++;
-  } else {
-    win++;
-  }
+    if (result === 0) {
+      tie++;
+    } else if (result === 1) {
+      lose++;
+    } else {
+      win++;
+    }
 
-  return `Current Score - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+    if (win >= 5) {
+      gameOver = true;
+      return `WINNER! Final tally - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+    } else if (lose >= 5) {
+      gameOver = true;
+      return `GAME OVER! Final tally - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+    } else {
+      return `Current Score - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+    }
 }
 
 const btns = document.querySelectorAll('button');
 btns.forEach(btn => btn.addEventListener('click', (e) => {
-  playRound(e.explicitOriginalTarget.id, computerPlay());
-  result.appendChild(matchResult);
-  result.appendChild(winCounter);
+  if (gameOver) {
+    return;
+  } else {
+    playRound(e.explicitOriginalTarget.id, computerPlay());
+    result.appendChild(matchResult);
+    result.appendChild(winCounter);
+  }
 }));
