@@ -41,25 +41,30 @@ function playRound(playerSelection, computerSelection) {
   }
 }
 
-function game() {
-  let win = 0;
-  let lose = 0;
-  let tie = 0;
+// function game() {
+//   let win = 0;
+//   let lose = 0;
+//   let tie = 0;
+//
+//   // for (var i = 0; i < 5; i++) {
+//   //   const playerSelection = prompt("Enter your choice:");
+//   //   const computerSelection = computerPlay();
+//   //   let result = playRound(playerSelection, computerSelection);
+//   //
+//   //   if (result === 0) {
+//   //     tie++;
+//   //   } else if (result === 1) {
+//   //     lose++;
+//   //   } else {
+//   //     win++;
+//   //   }
+//   // }
+//   return `Final tally! Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+// }
+//
+// console.log(game());
 
-  for (var i = 0; i < 5; i++) {
-    const playerSelection = prompt("Enter your choice:");
-    const computerSelection = computerPlay();
-    let result = playRound(playerSelection, computerSelection);
-
-    if (result === 0) {
-      tie++;
-    } else if (result === 1) {
-      lose++;
-    } else {
-      win++;
-    }
-  }
-  return `Final tally! Wins: ${win} Loses: ${lose} Draws: ${tie}`;
-}
-
-console.log(game());
+const btns = document.querySelectorAll('button');
+  btns.forEach(btn => btn.addEventListener('click', (e) => {
+    playRound(e.explicitOriginalTarget.id, computerPlay())
+  }));
