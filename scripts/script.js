@@ -78,7 +78,7 @@ function trackScore(result) {
     gameOver = true;
     welcomeMsg.textContent = 'GAME OVER!';
     statusMsg.textContent = "- Final Tally -";
-    return `Final tally - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+    return `Wins: ${win} Loses: ${lose} Draws: ${tie}`;
   } else if (lose >= 5) {
     gameOver = true;
     welcomeMsg.textContent = 'GAME OVER!';
