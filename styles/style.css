@@ -1,1 +1,103 @@
-/* add styling here */
+@supports (display: grid){
+  @media screen and (min-width: 800px){
+    .container {
+      display: grid;
+      height: 100vh;
+      width: 100vw;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-areas: ". game .";
+      justify-items: center;
+    }
+  }
+}
+
+@supports (display: grid){
+  @media screen and (max-width: 799px){
+    .container {
+      display: grid;
+      height: 100vh;
+      width: 95vw;
+      grid-template-columns: 10px auto 10px;
+      grid-template-areas: ". game .";
+      justify-items: center;
+    }
+
+  }
+}
+
+body {
+  background-color: black;
+  overflow-y: hidden;
+  font-family: 'Press Start 2P', cursive;
+  letter-spacing: -0.8px;
+  word-spacing: -2px;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+button {
+  padding: 5px;
+  width: 115px;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.6em;
+}
+
+.game-area {
+  grid-area: game;
+  place-self: center;
+  display: grid;
+  width: 100%;
+  height: 300px;
+  padding: 0 10px;
+  background-color: blue;
+  color: white;
+  border-radius: 25px;
+  border: 15px solid rgba(157, 157, 157, 0.9);
+  grid-template-rows: 2fr 3fr 1fr;
+  grid-template-areas:
+    "welcomeMsg"
+    "result"
+    "buttons";
+}
+
+.result {
+  display: grid;
+  grid-template-rows: 33% 33% 33%;
+  grid-template-areas:
+    "top"
+    "middle"
+    "bottom";
+  grid-area: result;
+  justify-self: center;
+}
+
+.welcomeMsg {
+  grid-area: welcomeMsg;
+  justify-self: center;
+}
+
+.matchResult {
+  grid-area: top;
+  justify-self: center;
+  margin-top: -15px;
+}
+
+.statusMsg {
+  grid-area: middle;
+  justify-self: center;
+  margin-top: -15px;
+}
+
+.winCounter {
+  grid-area: bottom;
+  justify-self: center;
+  margin-top: -15px;
+}
+
+
+.buttons {
+  grid-area: buttons;
+  justify-self: center;
+}

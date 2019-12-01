@@ -3,9 +3,20 @@ let lose = 0;
 let tie = 0;
 let gameOver = false;
 
+const userName = prompt('Welcome to Rock-Paper-Scissors!\nPlease enter your name:');
+const welcomeMsg = document.createElement('h1');
+const statusMsg = document.createElement('p');
+const matchResult = document.createElement('p');
+const winCounter = document.createElement('p');
+const gameArea = document.querySelector('.game-area');
 const result = document.querySelector('.result');
-const matchResult = document.createElement('h1');
-const winCounter = document.createElement('h2');
+matchResult.classList.add('matchResult');
+statusMsg.classList.add('statusMsg');
+winCounter.classList.add('winCounter');
+welcomeMsg.classList.add('welcomeMsg');
+welcomeMsg.textContent = `Choose your action, ${userName}.`;
+
+gameArea.insertBefore(welcomeMsg, gameArea.firstChild);
 
 function computerPlay() {
   const randomNumber = Math.floor(Math.random() * 3);
@@ -28,21 +39,21 @@ function playRound(playerSelection, computerSelection) {
     case ps === "rock" && cs === "rock":
     case ps === "paper" && cs === "paper":
     case ps === "scissors" && cs === "scissors":
-      matchResult.textContent = `It's a tie! ${ps} vs. ${cs}!`;
+      matchResult.textContent = `It's a tie! ${ps.charAt(0).toUpperCase() + ps.substring(1)} and ${cs}!`;
       winCounter.textContent = trackScore(0);
       return;
       break;
     case ps === "rock" && cs === "paper":
     case ps === "paper" && cs === "scissors":
     case ps === "scissors" && cs === "rock":
-      matchResult.textContent = `You lose! ${cs} beats ${ps}!`;
+      matchResult.textContent = `You lose! ${cs.charAt(0).toUpperCase() + cs.substring(1)} beats ${ps}!`;
       winCounter.textContent = trackScore(1);
       return;
       break;
     case ps === "rock" && cs === "scissors":
     case ps === "paper" && cs === "rock":
     case ps === "scissors" && cs === "paper":
-      matchResult.textContent = `You win! ${ps} beats ${cs}!`
+      matchResult.textContent = `You win! ${ps.charAt(0).toUpperCase() + ps.substring(1)} beats ${cs}!`;
       winCounter.textContent = trackScore(2);
       return;
       break;
@@ -53,23 +64,30 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function trackScore(result) {
-    if (result === 0) {
-      tie++;
-    } else if (result === 1) {
-      lose++;
-    } else {
-      win++;
-    }
+  let resultTxt;
 
-    if (win >= 5) {
-      gameOver = true;
-      return `WINNER! Final tally - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
-    } else if (lose >= 5) {
-      gameOver = true;
-      return `GAME OVER! Final tally - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
-    } else {
-      return `Current Score - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
-    }
+  if (result === 0) {
+    tie++;
+  } else if (result === 1) {
+    lose++;
+  } else {
+    win++;
+  }
+
+  if (win >= 5) {
+    gameOver = true;
+    welcomeMsg.textContent = 'GAME OVER!';
+    statusMsg.textContent = "- Final Tally -";
+    return `Final tally - Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+  } else if (lose >= 5) {
+    gameOver = true;
+    welcomeMsg.textContent = 'GAME OVER!';
+    statusMsg.textContent = "- Final Tally -";
+    return `Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+  } else {
+    statusMsg.textContent = "- Current Score -";
+    return `Wins: ${win} Loses: ${lose} Draws: ${tie}`;
+  }
 }
 
 const btns = document.querySelectorAll('button');
@@ -77,8 +95,10 @@ btns.forEach(btn => btn.addEventListener('click', (e) => {
   if (gameOver) {
     return;
   } else {
+    console.log(e.explicitOriginalTarget.id);
     playRound(e.explicitOriginalTarget.id, computerPlay());
     result.appendChild(matchResult);
+    result.appendChild(statusMsg);
     result.appendChild(winCounter);
   }
 }));
